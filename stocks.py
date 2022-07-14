@@ -51,4 +51,44 @@ fig.update_layout(xaxis_rangeslider_visible=False)
 fig.show()
 
 
+ Bollinger Bands
+indicator_bb = BollingerBands(df['Close'])
+bb = df
+bb['Upper (Overbought)'] = indicator_bb.bollinger_hband()
+bb['Lower (Oversold)'] = indicator_bb.bollinger_lband()
+bb = bb[['Close','Upper (Overbought)','Lower (Oversold)']]
+
+# Moving Average Convergence Divergence
+macd = MACD(df['Close']).macd()
+
+# Resistence Strength Indicator
+rsi = RSIIndicator(df['Close']).rsi()
+
+
+# MAIN PAGE #
+
+# Display stock name and symbol
+st.header(stock_name + ' (' + stocklist + ')')
+
+# Display plotly candlestick chart
+st.subheader('Daily Price Movement')
+st.plotly_chart(fig)
+
+# Plot prices and the bollinger bands
+st.subheader('Value with Bollinger Bands')
+st.line_chart(bb)
+
+progress_bar = st.progress(0)
+
+# Plot MACD
+st.subheader('Moving Average Convergence Divergence (MACD)')
+st.area_chart(macd)
+
+# Plot RSI
+st.subheader('Relative Strength Index (RSI)')
+st.line_chart(rsi)
+
+# Data for recent dates
+st.subheader('Recent data ')
+st.dataframe(df.tail(10))
 
