@@ -51,7 +51,7 @@ fig.update_layout(xaxis_rangeslider_visible=False)
 fig.show()
 
 
- Bollinger Bands
+# Bollinger Bands
 indicator_bb = BollingerBands(df['Close'])
 bb = df
 bb['Upper (Overbought)'] = indicator_bb.bollinger_hband()
